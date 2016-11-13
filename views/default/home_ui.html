@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{=response.title}}</title>
+	{{include 'web2py_ajax.html'}}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{=URL('static', 'css/semantic.min.css')}}">
+	<script src="{{=URL('static', 'js/semantic.min.js')}}"></script>
+
+	<!-- Semantic-UI CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/components/icon.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/components/list.min.css">
+
+
+	<script type="text/javascript">
+		$(function(){
+			$('.ui.accordion').accordion();
+			$('#div_clima').hide()
+			$('#div_fuso').hide()
+			$('#div_cep').hide()
+		});
+	</script>
+
+	<script>
+		$( function() {
+		{{=ASSIGNJS(siglas = lista_cid_est)}}
+		$( "#no_table_estado" ).autocomplete({
+		    source: function( request, response ) {
+		    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+		    response( $.grep( siglas, function( item ){
+		        return matcher.test( item );
+		    }) );
+		  }
+		});
+		} );
+	</script>
+
+	<script>
+		$( function() {
+		{{=ASSIGNJS(siglas = lista_fuso)}}
+		$( "#no_table_fuso" ).autocomplete({ source: siglas });
+		} );
+	</script>
+
+	<style>
+		body{
+			padding: 1.2em 0em;
+		}
+		.fonte{
+			font-size: 0.8em;
+			text-align: right;
+			padding: 0.5em 1em 0em 1em;
+		}
+		.panel-border{
+			padding-bottom: 0em;
+		}
+	</style>
+
+</head>
+<body>
+
+
+<!-- 
+
+<div class="ui internally celled grid">
+  <div class="row">
+    <div class="three wide column">
+      <img>
+    </div>
+    <div class="ten wide column">
+      <p></p>
+    </div>
+    <div class="three wide column">
+      <img>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three wide column">
+      <img>
+    </div>
+    <div class="ten wide column">
+      <p></p>
+    </div>
+    <div class="three wide column">
+      <img>
+    </div>
+  </div>
+</div>
+ -->
+	
+		<div class="ui grid">
+
+			<div class="row" style="margin-left: 1em; padding-bottom: 0em;">
+				
+				<div class="four wide column">
+					<div class="ui styled accordion">
+
+						<div id="title_clima" class="title">
+							<i class="dropdown icon"></i>
+							Meteorologia
+						</div>
+						<div id="content_clima" class="content">
+							<form id="form_clima" action="">
+							    <div class="ui fluid icon input">
+								  <input id="no_table_estado" name="estado" type="text" placeholder="Cidade ou Fuso Horário...">
+								  <!-- <button type="button" class="ui icon button"> -->
+								    <i class="search icon"></i>
+								  <!-- </button> -->
+							  	</div>
+							</form>
+						</div>
+
+						<div id="div_clima" style="padding: 0em 1em 1em 1em;"></div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="margin-left: 1em; padding-bottom: 0em; padding-top: 0.5em;">
+				<div class="four wide column">
+					<div class="ui styled accordion">
+
+						<div id="title_fuso" class="title">
+							<i class="dropdown icon"></i>
+							Fuso Horário Mundial
+						</div>
+						<div id="content_fuso" class="content">
+							<form id="form_fuso" action="">
+							    <div class="ui fluid icon input">
+									<input id="no_table_fuso" name="fuso" type="text" placeholder="Search...">
+									<!-- <button type="submit" class="ui icon button"> -->
+									<i class="search icon"></i>
+									<!-- </button> -->
+							  	</div>
+							</form>
+						</div>
+
+						<div id="div_fuso" style="padding: 0em 1em 1em 1em;"></div>
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+	<!-- <div id="carregando" class="ui active centered inline loader"></div> -->
+
+
+			<div class="row" style="margin-left: 1em; padding-bottom: 0em; padding-top: 0.5em;">
+				<div class="four wide column">
+					<div class="ui styled accordion">
+
+						<div id="title_cep" class="title">
+							<i class="dropdown icon"></i>
+							Busca por CEP
+						</div>
+						<div id="content_cep" class="content">
+							<form id="form_cep" action="">
+							    <!-- <div class="ui fluid action input"> -->
+							    <div class="ui fluid icon input">
+								  <input id="no_table_cep" name="cep" type="text" placeholder="Search...">
+								  <!-- <button type="submit" class="ui icon button"> -->
+								    <i class="search icon"></i>
+								  <!-- </button> -->
+							  	</div>
+							</form>
+						</div>
+
+						<div id="div_cep" style="padding: 0em 1em 1em 1em;"></div>
+
+					</div>
+				</div>
+		
+			</div>
+		</div>
+
+
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+jQuery('#form_clima').submit(function() {
+	$('#div_clima').show();
+  ajax('{{=URL('funcoes', 'atual_est_esc')}}',
+       ['estado'], 'div_clima');
+  	$('#content_clima').removeClass("active")
+  	$('#title_clima').removeClass("active")
+  return false;
+});
+</script>
+
+<script type="text/javascript">
+jQuery('#form_fuso').submit(function() {
+	$('#div_fuso').show();
+  ajax('{{=URL('funcoes', 'atual_fuso')}}',
+       ['fuso'], 'div_fuso');
+	$('#content_fuso').removeClass("active")
+  	$('#title_fuso').removeClass("active")
+  return false;
+});
+</script>
+
+<script type="text/javascript">
+jQuery('#form_cep').submit(function() {
+	$('#div_cep').show();
+  ajax('{{=URL('funcoes', 'atual_cep')}}',
+       ['cep'], 'div_cep');
+  	$('#content_cep').removeClass("active")
+  	$('#title_cep').removeClass("active")
+  return false;
+});
+</script>
+
+</body>
+</html>
+

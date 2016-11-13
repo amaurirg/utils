@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{=response.title}}</title>
+	<link rel="stylesheet" href="{{=URL('static', 'css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	{{include 'web2py_ajax.html'}}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			// $('#target').hide()
+			$('#div_clima').hide()
+			$('#div_fuso').hide()
+			$('#div_cep').hide()
+		});
+	</script>
+
+	<style>
+		body{
+			padding: 1.2em 0em;
+		}
+		.fonte{
+			font-size: 0.8em;
+			text-align: right;
+			padding: 0.5em 1em 0em 1em;
+		}
+		.panel-border{
+			padding-bottom: 0em;
+		}
+	</style>
+
+</head>
+<body>
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div id="colGroup1" role="tab" class="panel-heading" style="padding: 1px 10px;">
+				        <h5>Meteorologia</h5>
+				    </div>
+				    <div class="panel-body">
+						<form id="form_clima" action="">
+						    <div class="input-group">
+								{{=form_clima.custom.begin}}
+								{{form_clima.elements('#no_table_estado')[0]['_class']='form-control'}}
+								{{form_clima.elements('#no_table_estado')[0]['_placeholder']='Digite uma cidade'}}
+								{{form_clima.elements('#no_table_estado')[0]}}
+								{{=form_clima.custom.widget.estado}}
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-primary" type="submit">Go!</button>
+							</span>
+								{{=form_clima.custom.end}}
+						    </div>
+						</form>
+					</div>
+
+					<div id="div_clima" style="margin: 1em;" class="alert alert-success"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div id="colGroup2" role="tab" class="panel-heading" style="padding: 1px 10px;">
+				        <h5>Fuso Horário Mundial</h5>
+				    </div>
+				    <div class="panel-body">
+						<form id="form_fuso" action="">
+						    <div class="input-group">
+								{{=form_fuso.custom.begin}}
+								{{form_fuso.elements('#no_table_cidade')[0]['_class']='form-control'}}
+								{{=form_fuso.custom.widget.cidade}}
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-primary" type="submit">Go!</button>
+							</span>
+								{{=form_fuso.custom.end}}
+						    </div>
+						</form>
+					</div>
+
+					<div id="div_fuso" style="margin: 1em;" class="alert alert-success"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div id="colGroup3" role="tab" class="panel-heading" style="padding: 1px 10px;">
+				        <h5>Busca por CEP</h5>
+				    </div>
+				      <div class="panel-body">
+					    	<form id="form_cep" action="">
+							    <div class="input-group">
+							      <input name="cep" type="text" class="form-control" placeholder="CEP">
+							      <span class="input-group-btn">
+							        <button class="btn btn-default btn-primary" type="submit">Go!</button>
+							      </span>
+							    </div>
+							</form>
+					  </div>
+					  	
+					  	<div id="div_cep"></div>
+
+				        <div class="panel-border" style="padding: 1px 10px;">
+				        	<p class="fonte">Fonte: <a target="_blank" href="http://www.postmon.com.br">Postmon</a></p>
+				        </div>
+				</div>			
+			</div>
+		</div>
+
+	</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+jQuery('#form_clima').submit(function() {
+	$('#div_clima').show();
+  ajax('{{=URL('funcoes', 'atual_est_esc')}}',
+       ['estado'], 'div_clima');
+  return false;
+});
+</script>
+
+<script type="text/javascript">
+jQuery('#form_fuso').submit(function() {
+	$('#div_fuso').show();
+  ajax('{{=URL('funcoes', 'atual_fuso')}}',
+       ['cidade'], 'div_fuso');
+  return false;
+});
+</script>
+
+<script type="text/javascript">
+jQuery('#form_cep').submit(function() {
+	$('#div_cep').show();
+  ajax('{{=URL('funcoes', 'atual_cep')}}',
+       ['cep'], 'div_cep');
+  return false;
+});
+</script>
+
+</body>
+</html>
+
