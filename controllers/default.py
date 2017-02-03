@@ -19,6 +19,11 @@ def home():
 
     return dict(lista_fuso=common_timezones, lista_cid_est=lista_cid_est)
 
+def home_bs():     
+    est_esc = db(db.cidades).select(db.cidades.cidade, db.cidades.estado)
+    lista_cid_est = ['{0} - {1}'.format(i.cidade,i.estado) for i in est_esc]
+
+    return dict(lista_fuso=common_timezones, lista_cid_est=lista_cid_est)
 
 def jquery_autocomplete():
     lista_cid_est = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 

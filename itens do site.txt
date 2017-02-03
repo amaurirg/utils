@@ -1,0 +1,12 @@
+clima
+fuso horário
+cep
+
+clima e condições nos aeroportos
+moeda
+destaque de notícias
+preço combustível no Brasil
+gasto com combustível em um percurso
+gasto com combustível (km/l)
+situação dos vôos 
+pedágio
